@@ -9,7 +9,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: white;
             display: flex;
@@ -19,18 +18,15 @@
             min-height: 100vh;
             font-family: sans-serif;
         }
-
         #content {
             text-align: center;
             transition: opacity 0.3s;
         }
-
         h1 {
             font-size: 28px;
             font-weight: bold;
             margin-bottom: 20px;
         }
-
         button {
             background: yellow;
             border: none;
@@ -40,7 +36,6 @@
             font-weight: bold;
             cursor: pointer;
         }
-
         #tip {
             position: fixed;
             top: 50%;
@@ -56,12 +51,10 @@
             color: transparent;
             display: none;
         }
-
         .showTip {
             display: block !important;
             animation: show 2s ease-out forwards;
         }
-
         @keyframes show {
             0% {
                 clip-path: inset(0 0 100% 0);
@@ -70,102 +63,99 @@
                 clip-path: inset(0 0 0 0);
             }
         }
-
-        帆布 {
+        canvas {
             position: fixed;
             top: 0;
             left: 0;
-            宽度: 100vw;
+            width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: 10;
         }
     </style>
 </head>
-<身体>
+<body>
+    <div id="content">
+        <h1>安海烨是大**</h1>
+        <button onclick="go()">同意</button>
+    </div>
+    <div id="tip">恭喜您答对了</div>
 
-<div id="content">
-    <h1>安海烨是大**</h1>
-    <button onclick="go()">同意</button>
-</div>
+    <script>
+        let canvas, ctx, particles;
+        let createTimer;
+        let animId;
 
-<div id="tip">恭喜您答对了</div>
+        function go() {
+            document.getElementById("content").style.opacity = "0";
+            document.getElementById("tip").classList.remove("showTip");
+            
+            if (canvas) canvas.remove();
+            clearInterval(createTimer);
+            cancelAnimationFrame(animId);
 
-<脚本>
-让 帆布, CTX, 部分;
-让 createTimer;
-让 阿尼米德;
+            canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
+            ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
 
-功能 go() {
-    document.getElementById("content").style.opacity="0";
-    document.getElementById("tip").classList.remove("showTip");
+            createTimer = setInterval(spawn, 350);
+            setTimeout(() => clearInterval(createTimer), 5000);
+            run();
 
-    如果 (帆布) 帆布.remove();
-    clearInterval(createTimer);
-    cancelAnimationFrame(阿尼米德);
+            setTimeout(() => {
+                document.getElementById("tip").classList.add("showTip");
+            }, 5000);
 
-    帆布=document.createElement("canvas");
-    document.身体.appendChild(帆布);
-    CTX=帆布.getContext("2d");
-    帆布.宽度=window.innerWidth;
-    帆布.height=window.innerHeight;
-    部分=[];
+            setTimeout(() => {
+                document.getElementById("content").style.opacity = "1";
+                document.getElementById("tip").classList.remove("showTip");
+                if (canvas) canvas.remove();
+            }, 7500);
+        }
 
-    createTimer=setInterval(spawn, 350);
-    setTimeout(() => clearInterval(createTimer), 5000);
+        function spawn() {
+            let x = Math.random() * canvas.width;
+            let y = Math.random() * (canvas.height * 0.6);
+            let colors = ["red", "gold", "orange", "crimson"];
+            let count = 30;
+            for (let i = 0; i < count; i++) {
+                let angle = Math.random() * Math.PI * 2;
+                let speed = 3 + Math.random() * 3;
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    c: colors[Math.floor(Math.random() * colors.length)],
+                    alpha: 1
+                });
+            }
+        }
 
-    跑();
+        function run() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.vy += 0.06;
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.012;
 
-    setTimeout(() => {
-        document.getElementById("tip").classList.add("showTip");
-    }, 5000);
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = p.c;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                ctx.fill();
 
-    setTimeout(() => {
-        document.getElementById("content").style.opacity="1";
-        document.getElementById("tip").classList.remove("showTip");
-        如果 (帆布) 帆布.remove();
-    }, 7500);
-}
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            animId = requestAnimationFrame(run);
+        }
+    </script>
+</body>
+</html>
 
-功能 spawn() {
-    让 x = 数学.random() * 帆布.宽度;
-    让 y = 数学.random() * (帆布.height * 0.6);
-    让 colors = ["red", "gold", "orange", "crimson"];
-
-罪恶Ang30; 我++) {
-让ang=数学.随机()*数学.Pi*2；
-让speed=3+数学.random()*3；
-部分.推({
-X:x，y:y，
-VX：数学.Cos(ang)*速度，
-Vy：数学.正弦(角)*速度，
-C：颜色[数学.floor(数学.random()*colors.长度)]，
-功能跑跑跑功能   
-Ang
-Ang
-}
-
-速度
-跑跑功能让/戏剧>，0，帆布.宽度，帆布.高度)；/戏剧>，0，帆布.宽度，帆布.高度)；
-
-为 让 让 为=部分.长度 - 1; 我>=0; 我--) {
-        让让=部分我我部分;
-p.Vy+=0.06；
-p.x+=p.VX；
-P.Y+=p.Vy；
-p。一个-=0.012；
-
-CTX.globalAlpha=p.一个；
-CTX.fillStyle=p.c；
-CTX.beginPath()；
-CTX.弧线x，P.Y，3，0，数学Pi*2)；
-CTX.填满(填满；
-
-如果(p.一个<=0) 部分.我(拼接, 1);
-    }
-
-阿尼米德=requestAnimationFrame(跑)；
-}
-</剧本>
-</身体>
-</超文本标记语言>
