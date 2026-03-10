@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>安海烨专属</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+
+        #content {
+            text-align: center;
+            transition: opacity 0.3s;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: yellow;
+            border: none;
+            font-size: 18px;
+            padding: 10px 26px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #tip {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
+            font-size: 80px;
+            font-weight: bold;
+            background: linear-gradient(to right, red, gold, orange, crimson);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: none;
+        }
+
+        .showTip {
+            display: block !important;
+            animation: show 2s ease-out forwards;
+        }
+
+        @keyframes show {
+            0% {
+                clip-path: inset(0 0 100% 0);
+            }
+            100% {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        帆布 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            宽度: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<身体>
+
+<div id="content">
+    <h1>安海烨是大**</h1>
+    <button onclick="go()">同意</button>
+</div>
+
+<div id="tip">恭喜您答对了</div>
+
+<脚本>
+让 帆布, CTX, 部分;
+让 createTimer;
+让 阿尼米德;
+
+功能 go() {
+    document.getElementById("content").style.opacity="0";
+    document.getElementById("tip").classList.remove("showTip");
+
+    如果 (帆布) 帆布.remove();
+    clearInterval(createTimer);
+    cancelAnimationFrame(阿尼米德);
+
+    帆布=document.createElement("canvas");
+    document.身体.appendChild(帆布);
+    CTX=帆布.getContext("2d");
+    帆布.宽度=window.innerWidth;
+    帆布.height=window.innerHeight;
+    部分=[];
+
+    createTimer=setInterval(spawn, 350);
+    setTimeout(() => clearInterval(createTimer), 5000);
+
+    跑();
+
+    setTimeout(() => {
+        document.getElementById("tip").classList.add("showTip");
+    }, 5000);
+
+    setTimeout(() => {
+        document.getElementById("content").style.opacity="1";
+        document.getElementById("tip").classList.remove("showTip");
+        如果 (帆布) 帆布.remove();
+    }, 7500);
+}
+
+功能 spawn() {
+    让 x = 数学.random() * 帆布.宽度;
+    让 y = 数学.random() * (帆布.height * 0.6);
+    让 colors = ["red", "gold", "orange", "crimson"];
+
+罪恶Ang30; 我++) {
+让ang=数学.随机()*数学.Pi*2；
+让speed=3+数学.random()*3；
+部分.推({
+X:x，y:y，
+VX：数学.Cos(ang)*速度，
+Vy：数学.正弦(角)*速度，
+C：颜色[数学.floor(数学.random()*colors.长度)]，
+功能跑跑跑功能   
+Ang
+Ang
+}
+
+速度
+跑跑功能让/戏剧>，0，帆布.宽度，帆布.高度)；/戏剧>，0，帆布.宽度，帆布.高度)；
+
+为 让 让 为=部分.长度 - 1; 我>=0; 我--) {
+        让让=部分我我部分;
+p.Vy+=0.06；
+p.x+=p.VX；
+P.Y+=p.Vy；
+p。一个-=0.012；
+
+CTX.globalAlpha=p.一个；
+CTX.fillStyle=p.c；
+CTX.beginPath()；
+CTX.弧线x，P.Y，3，0，数学Pi*2)；
+CTX.填满(填满；
+
+如果(p.一个<=0) 部分.我(拼接, 1);
+    }
+
+阿尼米德=requestAnimationFrame(跑)；
+}
+</剧本>
+</身体>
+</超文本标记语言>
