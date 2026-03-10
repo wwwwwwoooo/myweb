@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>郑奥博专属</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+        #content {
+            text-align: center;
+            transition: opacity 0.3s;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        button {
+            background: yellow;
+            border: none;
+            font-size: 18px;
+            padding: 10px 26px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #tip {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
+            font-size: 80px;
+            font-weight: bold;
+            background: linear-gradient(to right, red, gold, orange, crimson);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: none;
+        }
+        .showTip {
+            display: block !important;
+            animation: show 2s ease-out forwards;
+        }
+        @keyframes show {
+            0% {
+                clip-path: inset(0 0 100% 0);
+            }
+            100% {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>郑奥博是大**</h1>
+        <button onclick="go()">同意</button>
+    </div>
+    <div id="tip">恭喜您答对了</div>
+
+    <script>
+        let canvas, ctx, particles;
+        let createTimer;
+        let animId;
+
+        function go() {
+            document.getElementById("content").style.opacity = "0";
+            document.getElementById("tip").classList.remove("showTip");
+            
+            if (canvas) canvas.remove();
+            clearInterval(createTimer);
+            cancelAnimationFrame(animId);
+
+            canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
+            ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+
+            createTimer = setInterval(()=>{
+                spawn();
+                // 真实烟花音效
+                let audio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/12/audio_0fa2726cfb.mp3");
+                audio.volume = 0.4;
+                audio.play();
+            }, 350);
+            
+            setTimeout(() => clearInterval(createTimer), 5000);
+            run();
+
+            setTimeout(() => {
+                document.getElementById("tip").classList.add("showTip");
+            }, 5000);
+
+            setTimeout(() => {
+                document.getElementById("content").style.opacity = "1";
+                document.getElementById("tip").classList.remove("showTip");
+                if (canvas) canvas.remove();
+            }, 7500);
+        }
+
+        function spawn() {
+            let x = Math.random() * canvas.width;
+            let y = Math.random() * (canvas.height * 0.6);
+            let colors = ["red", "gold", "orange", "crimson"];
+            let count = 30;
+            for (let i = 0; i < count; i++) {
+                let angle = Math.random() * Math.PI * 2;
+                let speed = 3 + Math.random() * 3;
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    c: colors[Math.floor(Math.random() * colors.length)],
+                    alpha: 1
+                });
+            }
+        }
+
+        function run() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.vy += 0.06;
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.012;
+
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = p.c;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            animId = requestAnimationFrame(run);
+        }
+    </script>
+</body>
+</html>
+
