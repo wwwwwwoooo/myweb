@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>安海烨专属</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+
+        #content {
+            text-align: center;
+            transition: opacity 0.3s;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: yellow;
+            border: none;
+            font-size: 18px;
+            padding: 10px 26px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #tip {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
+            font-size: 80px;
+            font-weight: bold;
+            background: linear-gradient(to right, red, gold, orange, crimson);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: none;
+        }
+
+        .showTip {
+            display: block !important;
+            animation: show 2s ease-out forwards;
+        }
+
+        @keyframes show {
+            0% {
+                clip-path: inset(0 0 100% 0);
+            }
+            100% {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+<div id="content">
+    <h1>安海烨是大**</h1>
+    <button onclick="go()">同意</button>
+</div>
+
+<div id="tip">恭喜您答对了</div>
+
+<script>
+let canvas, ctx, parts;
+let createTimer;
+let animId;
+
+function go() {
+    document.getElementById("content").style.opacity = "0";
+    document.getElementById("tip").classList.remove("showTip");
+
+    if (canvas) canvas.remove();
+    clearInterval(createTimer);
+    cancelAnimationFrame(animId);
+
+    canvas = document.createElement("canvas");
+    document.body.appendChild(canvas);
+    ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    parts = [];
+
+    createTimer = setInterval(spawn, 350);
+    setTimeout(() => clearInterval(createTimer), 5000);
+
+    run();
+
+    setTimeout(() => {
+        document.getElementById("tip").classList.add("showTip");
+    }, 5000);
+
+    setTimeout(() => {
+        document.getElementById("content").style.opacity = "1";
+        document.getElementById("tip").classList.remove("showTip");
+        if (canvas) canvas.remove();
+    }, 7500);
+}
+
+function spawn() {
+    let x = Math.random() * canvas.width;
+    let y = Math.random() * (canvas.height * 0.6);
+    let colors = ["red", "gold", "orange", "crimson"];
+
+    for (let i = 0; i < 30; i++) {
+        let ang = Math.random() * Math.PI * 2;
+        let speed = 3 + Math.random() * 3;
+        parts.push({
+            x: x, y: y,
+            vx: Math.cos(ang) * speed,
+            vy: Math.sin(ang) * speed,
+            c: colors[Math.floor(Math.random() * colors.length)],
+            a: 1
+        });
+    }
+}
+
+function run(){
+CTX.clearRect(0，0，画布。宽度，画布。高度)；
+
+for(设i=部分.长度-1；i>=0；i--){
+设p=部分[i]；
+p.vy+=0.06；
+p.x+=p.vx；
+P.Y+=p.vy；
+p.a-=0.012；
+
+ctx.globalAlpha=p.a；
+ctx.fillStyle=p.c；
+ctx.beginPath()；
+ctx.arc(p.x，P.Y，3，0，Math.PI*2)；
+ctx.fill()；
+
+if(p.a<=0)parts.splice(i，1)；
+    }
+
+animid=requestAnimationFrame(run)；
+}
+</script>
+</body>
+</html>
