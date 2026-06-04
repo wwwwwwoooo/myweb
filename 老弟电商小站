@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>老弟商店导航</title>
+
+    <style>
+
+        *{
+
+            margin:0;
+
+            padding:0;
+
+            box-sizing:border-box;
+
+        }
+
+        .clearfix::after {
+
+            content: "";
+
+            display: block;
+
+            clear: both;
+
+        }
+
+        .nav {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 50px;
+
+            background-color: #333;
+
+            color: #fff;
+
+            line-height: 50px;
+
+            z-index: 999;
+
+        }
+
+        .nav-left {
+
+            float: left;
+
+            margin-left: 20px;
+
+        }
+
+        .nav-left span {
+
+            margin: 0 20px;
+
+            cursor: pointer;
+
+        }
+
+        .nav-right {
+
+            float: right;
+
+            margin-right: 20px;
+
+        }
+
+        /*Banner 横幅区域*/
+
+        .banner {
+
+    width: 1200px;
+
+    height: 200px;
+
+    /* 背景图（高清电商图，不用你本地图片） */
+
+    background-image: url("https://picsum.photos/id/612/1200/200");
+
+    background-size: cover;
+
+    background-position: center;
+
+    margin: 50px auto 0;
+
+    position: relative; /* 作业要求必须保留 */
+
+}
+
+
+
+/* 右下角文字（100% 按作业要求定位，只加阴影让文字更显眼） */
+
+.banner-text {
+
+    position: absolute; /* 作业要求 */
+
+    bottom: 20px;        /* 作业要求 */
+
+    right: 30px;         /* 作业要求 */
+
+    color: #fff;
+
+    font-size: 18px;     /* 作业要求 */
+
+    /* 额外加阴影，防止背景太亮看不清字 */
+
+    text-shadow: 0 0 8px rgba(0,0,0,0.7);
+
+    font-weight: bold;
+
+}
+
+        .container {
+
+            width: 1200px;
+
+            margin: 0 auto;
+
+        }
+
+        /*商品筛选栏*/
+
+        .filter {
+
+            height: 45px;
+
+            background-color: #f5f5f5;
+
+            border: 1px solid #ddd;
+
+            line-height: 45px;
+
+            margin: 20px 0;
+
+            padding: 0 20px;
+
+        }
+
+        .filter span {
+
+            float: left;
+
+            margin: 0 25px;
+
+            cursor: pointer;
+
+        }
+
+        .filter span:hover {
+
+            color: #f60;
+
+        }
+
+        /*商品列表区域*/
+
+        .goods-list {
+
+            overflow: hidden;
+
+        }
+
+        .goods-item {
+
+            width: 270px;
+
+            height: 360px;
+
+            border: 1px solid #eee;
+
+            float: left;
+
+            margin: 15px 15px;
+
+            text-align: center;
+
+            position: relative;
+
+        }
+
+        .goods-item img {
+
+            width: 200px;
+
+            height: 200px;
+
+            margin: 15px 0;
+
+        }
+
+        .goods-item .title {
+
+            font-size: 14px;
+
+            color: #333;
+
+            margin: 5px 10px;
+
+            height: 40px;
+
+        }
+
+        .goods-item .price {
+
+            font-size: 18px;
+
+            color: red;
+
+            font-weight: bold;
+
+            margin: 8px 0;
+
+        }
+
+        .goods-item .sales {
+
+            font-size: 12px;
+
+            color: #999;
+
+        }
+
+        /*热销角标*/
+
+        .hot {
+
+            position: absolute;
+
+            top: -5px;
+
+            right: 10px;
+
+            width: 40px;
+
+            height: 25px;
+
+            background-color: red;
+
+            color: #fff;
+
+            line-height: 25px;
+
+            font-size: 12px;
+
+            text-align: center;
+
+        }
+
+        /*底部状态栏*/
+
+        .footer {
+
+            width: 100%;
+
+            height: 60px;
+
+            background-color: #333;
+
+            color: #fff;
+
+            text-align: center;
+
+            line-height: 60px;
+
+            margin-top: 30px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!--顶部导航-->
+
+    <div class="nav clearfix">
+
+        <div class="nav-left">
+
+            <span>首页</span>
+
+            <span>商品列表</span>
+
+            <span>购物车</span>
+
+            <span>我的</span>
+
+        </div>
+
+        <div class="nav-right">欢迎来到老弟电商小站</div>
+
+    </div>
+
+
+
+    <!--Banner 区域-->
+
+    <div class="banner">
+
+        <div class="banner-text">精选好物 · 品质保证</div>
+
+    </div>
+
+
+
+    <div class="container">
+
+        <div class="filter clearfix">
+
+            <span>综合</span>
+
+            <span>价格</span>
+
+            <span>销量</span>
+
+            <span>新品</span>
+
+        </div>
+
+
+
+        <div class="goods-list clearfix">
+
+            <!--第一行-->
+
+            <!--商品1-->
+
+            <div class="goods-item">
+
+                <div class="hot">热销</div>
+
+                <img src="D:\back\3.图片.png" alt="商品图">
+
+                <div class="title">2026新款ZAB代言短袖</div>
+
+                <div class="price">¥250</div>
+
+                <div class="sales">销量:2500</div>
+
+            </div>
+
+
+
+            <!--商品2-->
+
+            <div class="goods-item">
+
+                <div class="hot">热销</div>
+
+                <img src="D:\back\2.图片.png" alt="商品图">
+
+                <div class="title">ZAB代言夏季休闲男士短裤</div>
+
+                <div class="price">¥25</div>
+
+                <div class="sales">销量:25000</div>
+
+            </div>
+
+
+
+            <!--商品3-->
+
+            <div class="goods-item">
+
+                <img src="D:\back\图片.png" alt="商品图">
+
+                <div class="title">超绝坐姿教学</div>
+
+                <div class="price">¥2.5</div>
+
+                <div class="sales">销量:250</div>
+
+            </div>
+
+
+
+            <!--商品4-->
+
+            <div class="goods-item">
+
+                <img src="D:\back\1.图片.png" alt="商品图">
+
+                <div class="title">慵懒睡觉教学</div>
+
+                <div class="price">¥25</div>
+
+                <div class="sales">销量:25000</div>
+
+            </div>
+
+
+
+            <!--商品5-->
+
+            <div class="goods-item">
+
+                <div class="hot">热销</div>
+
+                <img src="C:\Users\wangy\Downloads\电商小站页面制作 (2).png" alt="商品图">
+
+                <div class="title">新款休闲卫衣</div>
+
+                <div class="price">¥129</div>
+
+                <div class="sales">销量:6890</div>
+
+            </div>
+
+
+
+            <!--商品6-->
+
+            <div class="goods-item">
+
+                <img src="C:\Users\wangy\Downloads\电商小站页面制作 (3).png" alt="商品图">
+
+                <div class="title">透气运动跑鞋</div>
+
+                <div class="price">¥199</div>
+
+                <div class="sales">销量:9200</div>
+
+            </div>
+
+
+
+            <!--商品7-->
+
+            <div class="goods-item">
+
+                <div class="hot">热销</div>
+
+                <img src="C:\Users\wangy\Downloads\电商小站页面制作 (4).png" alt="商品图">
+
+                <div class="title">潮流棒球帽</div>
+
+                <div class="price">¥39</div>
+
+                <div class="sales">销量:13500</div>
+
+            </div>
+
+
+
+            <!--商品8-->
+
+            <div class="goods-item">
+
+                <img src="C:\Users\wangy\Downloads\电商小站页面制作 (5).png" alt="商品图">
+
+                <div class="title">简约帆布背包</div>
+
+                <div class="price">¥79</div>
+
+                <div class="sales">销量:5620</div>
+
+            </div>
+
+        </div>    
+
+    </div>
+
+           
+
+    <!--底部版权-->
+
+    <div class="footer">
+
+        版权所有 © 2026 老弟电商小站 保留所有权利
+
+    </div>
+
+</body>
+
+</html>
